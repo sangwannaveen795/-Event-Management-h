@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitality Solutions | Wedding & Event Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-color: #0a192f; /* Deep Navy Blue */
+            --secondary-color: #112240; /* Lighter Navy */
+            --accent-color: #d4af37; /* Wedding Gold */
+            --text-light: #e6f1ff;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+
+        body { font-family: 'Lato', sans-serif; line-height: 1.6; color: var(--text-dark); }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; color: inherit; }
+        img { width: 100%; height: auto; display: block; }
+
+        /* Utilities */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .gold-text { color: var(--accent-color); }
+        .white-text { color: var(--white); }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; width: 100%; }
+        .section-subtitle { text-align: center; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+        
+        .btn-main {
+            display: inline-block; padding: 12px 30px; background: var(--accent-color);
+            color: var(--primary-color); font-weight: bold; border-radius: 5px;
+            transition: all 0.3s ease; border: 1px solid var(--accent-color); cursor: pointer;
+        }
+        .btn-main:hover { background: transparent; color: var(--accent-color); }
+
+        /* Navbar */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--primary-color); color: var(--accent-color);
+            padding: 1rem 5%; position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; font-family: 'Playfair Display', serif; }
+        .nav-links { display: flex; list-style: none; }
+        .nav-links li { margin: 0 15px; }
+        .nav-links a { color: var(--text-light); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.btn-contact { color: var(--accent-color); }
+        .nav-links .btn-contact { border: 1px solid var(--accent-color); padding: 8px 20px; border-radius: 4px; }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            /* Background Image: Luxury Event Setting */
+            background: linear-gradient(rgba(10, 25, 47, 0.7), rgba(10, 25, 47, 0.7)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: var(--white);
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; margin-bottom: 2rem; letter-spacing: 1px; }
+
+        /* About Section */
+        .section { padding: 80px 0; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        
+        /* New Image Style for About */
+        .about-image img {
+            border-radius: 10px;
+            box-shadow: 20px 20px 0px var(--secondary-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        /* Services Section */
+        .dark-bg { background-color: var(--primary-color); color: var(--text-light); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .service-card {
+            background: var(--secondary-color); padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px;
+            text-align: center; transition: transform 0.3s ease;
+        }
+        .service-card:hover { transform: translateY(-10px); border-color: var(--accent-color); }
+        .service-card i { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 1rem; }
+        .service-card h3 { margin-bottom: 1rem; color: var(--white); }
+
+        /* --- NEW GALLERY SECTION STYLES --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 250px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 20px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Why Choose Us */
+        .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .feature { padding: 20px; border-left: 4px solid var(--accent-color); background: #f9f9f9; }
+        .feature h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
+
+        /* Contact Section */
+        .contact-bg { background-color: #0f2040; color: var(--white); }
+        .contact-wrapper { display: flex; flex-wrap: wrap; gap: 50px; }
+        .contact-info, .contact-form { flex: 1; min-width: 300px; }
+        .info-item { display: flex; align-items: center; margin-bottom: 20px; font-size: 1.1rem; }
+        .info-item i { color: var(--accent-color); font-size: 1.5rem; margin-right: 15px; width: 30px; }
+        .contact-form input, .contact-form textarea {
+            width: 100%; padding: 12px; margin-bottom: 15px;
+            border: 1px solid #ccc; border-radius: 4px;
+            background: rgba(255,255,255,0.9); font-family: inherit;
+        }
+
+        /* Footer */
+        footer { background: var(--primary-color); color: #8892b0; text-align: center; padding: 20px; border-top: 1px solid rgba(212, 175, 55, 0.3); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; flex-direction: column; width: 100%;
+                position: absolute; top: 60px; left: 0;
+                background: var(--primary-color); text-align: center; padding: 20px 0;
+            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; color: var(--accent-color); }
+            .hero h1 { font-size: 2.5rem; }
+            .about-grid, .features-grid, .contact-wrapper { grid-template-columns: 1fr; }
+            .about-image { order: -1; margin-bottom: 20px; } /* Image on top for mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Hospitality Solutions</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Glimpses</a></li> <li><a href="#why-us">Why Choose Us</a></li>
+            <li><a href="#contact" class="btn-contact">Contact Us</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1>Crafting Experiences, <span class="gold-text">Managing Moments</span></h1>
+            <p>Your Trusted Partner for Wedding and Corporate Management</p>
+            <a href="#contact" class="btn-main">Plan Your Event</a>
+        </div>
+    </header>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <p class="section-subtitle">We specialize in providing comprehensive teams to ensure seamless and unforgettable wedding experiences.</p>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Our dedicated professionals are here to take care of every detail, allowing you to enjoy your special day stress-free.</p>
+                    <br>
+                    <p>What makes Hospitality Solutions truly special is the way we weave creativity with precision, crafting events that feel effortless yet unforgettable.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Wedding Planner Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section dark-bg">
+        <div class="container">
+            <h2 class="section-title gold-text">Our Services</h2>
+            <p class="section-subtitle white-text">We offer a wide range of services to ensure your event runs smoothly:</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-concierge-bell"></i>
+                    <h3>Desk Management</h3>
+                    [cite_start]<p>Greeting guests with warmth and hospitality at the reception desk[cite: 8].</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-user-friends"></i>
+                    <h3>Male & Female Shadow</h3>
+                    [cite_start]<p>Personalized assistants to support the bride, groom, and families[cite: 9].</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-suitcase-rolling"></i>
+                    <h3>Porters</h3>
+                    [cite_start]<p>Managing luggage and guest needs with efficiency and care[cite: 10].</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h3>Logistic Head</h3>
+                    [cite_start]<p>Overseeing the smooth flow of operations and logistics[cite: 11].</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Food & Beverages Head</h3>
+                    [cite_start]<p>Ensuring the culinary experience is top-notch and coordinated[cite: 12].</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-luggage-cart"></i>
+                    <h3>Luggage Head</h3>
+                    [cite_start]<p>Handling all luggage management for a hassle-free experience[cite: 13].</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section">
+        <div class="container">
+            <h2 class="section-title">Glimpses</h2>
+            <p class="section-subtitle">A visual tour of the unforgettable moments we create.</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Wedding Decor Mandap">
+                    <div class="gallery-overlay"><h3>Exquisite Decor</h3></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Catering Service">
+                    <div class="gallery-overlay"><h3>Premium Catering</h3></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1553531384-cc64ac80f931?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Logistics Support">
+                    <div class="gallery-overlay"><h3>Seamless Logistics</h3></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1561489413-985b06da5bee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Guest Welcome">
+                    <div class="gallery-overlay"><h3>Warm Welcome</h3></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Event Planning">
+                    <div class="gallery-overlay"><h3>Attention to Detail</h3></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Wedding Ambience">
+                    <div class="gallery-overlay"><h3>Magical Ambience</h3></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-us" class="section" style="background-color: #f4f4f4;">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>Attention to Detail</h3>
+                    [cite_start]<p>Our team thrives on the finer details, ensuring every aspect of the event runs smoothly[cite: 16].</p>
+                </div>
+                <div class="feature">
+                    <h3>Tailored Services</h3>
+                    <p>We understand that every wedding is unique. [cite_start]Our teams provide personalized support[cite: 19].</p>
+                </div>
+                <div class="feature">
+                    <h3>Seamless Coordination</h3>
+                    [cite_start]<p>With a dedicated Logistic Head and team, we ensure every aspect is perfectly synchronized[cite: 21].</p>
+                </div>
+                <div class="feature">
+                    <h3>Hospitality Experts</h3>
+                    [cite_start]<p>Our management team is trained to represent the finest in hospitality[cite: 23].</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact-bg">
+        <div class="container">
+            <h2 class="section-title gold-text">Contact Us</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        [cite_start]<p>194/73, Sector 19, Pratap Nagar, Jaipur - 302033 [cite: 47]</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        [cite_start]<p>hospitalitysolution06@gmail.com [cite: 46]</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        [cite_start]<p>+91-8112289329, +91-7300210322 [cite: 48]</p>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="bookingForm">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <textarea placeholder="Event Details / Message" rows="5"></textarea>
+                    <button type="submit" class="btn-main">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Hospitality Solutions. Crafted with Warmth.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Mobile Navigation Toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('.nav-links li a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Smooth Scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70, 
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Form Alert
+            const form = document.getElementById('bookingForm');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you! Your message has been sent to Hospitality Solutions.');
+                form.reset();
+            });
+        });
+    </script>
+</body>
+</html>
